@@ -1,20 +1,33 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // ✅ yeh missing tha
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Festivals from "./pages/Festivals"; // ✅ correct file name
+import Review from "./pages/Review";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+import Destinations from "./pages/Destinations";
+
+ // ✅ correct file name
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <div className="container mt-5">
-        <h1 className="text-center">Welcome to Incredible India</h1>
-        <p className="text-center text-muted">
-          Explore the beauty, culture, and festivals of India.
-        </p>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/festival" element={<Festivals />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/destinations" element={<Destinations />} />
+        </Routes>
+        <Footer/>
       </div>
-      <Footer />
-    </div>
+    </Router>
   );
 }
 
