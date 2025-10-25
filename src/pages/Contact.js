@@ -14,14 +14,14 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you for contacting us!");
+    alert("Message sent successfully!");
     setFormData({ name: "", email: "", message: "" });
   };
 
   return (
     <div className="contact-container">
-      <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit}>
+      <h2>Contact Us</h2>
+      <form className="contact-form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"

@@ -1,64 +1,85 @@
-.review-container {
-  text-align: center;
+.reviews-container {
   padding: 40px;
-  background: #fffaf2;
+  background: #f9fbfd;
+  min-height: 100vh;
+  text-align: center;
 }
 
-.review-container h1 {
-  font-size: 2.4rem;
-  color: #333;
-  margin-bottom: 30px;
+h1 {
+  color: #1a237e;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
-.review-grid {
+.sub {
+  color: #555;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+/* ✏️ Form Styling */
+.review-form {
+  max-width: 600px;
+  margin: 0 auto 50px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.review-form button {
+  background: #1a237e;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.review-form button:hover {
+  background: #303f9f;
+}
+
+/* 💬 Review Cards */
+.reviews-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
 }
 
 .review-card {
   background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  transition: transform 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-.review-card:hover {
-  transform: translateY(-5px);
-}
-
-.review-card img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-}
-
-.review-card h2 {
-  color: #ff6600;
-  margin-bottom: 5px;
-}
-
-.review-card .location {
-  color: #777;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-.review-card .comment {
-  color: #444;
-  font-style: italic;
-  margin-bottom: 10px;
+.review-card h3 {
+  color: #1a237e;
 }
 
 .rating {
-  color: #ffaa00;
-  font-size: 1.1rem;
+  color: #ffb400;
+  font-size: 1.2rem;
+  margin: 5px 0;
 }
 
-.rating-num {
-  color: #555;
-  font-size: 0.9rem;
+.comment {
+  font-style: italic;
+  color: #444;
 }

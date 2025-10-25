@@ -4,9 +4,9 @@ import "./Home.css";
 function Home() {
   const destinations = [
     {
-      name: "Taj Mahal, Agra",
-      image: "https://pixabay.com/photos/taj-mahal-tourist-attraction-tourism-4608641/",
-      description: "One of the Seven Wonders of the World, symbol of love and Mughal architecture.",
+      name: "Rishikesh, Uttarakhand",
+      image: "https://i.pinimg.com/1200x/10/b8/16/10b816273afa1a1c49c7960ffe8c1637.jpg",
+      description: "The Yoga Capital of the World, nestled along the Ganges River and surrounded by the Himalayas.",
     },
     {
       name: "Jaipur, Rajasthan",
@@ -14,9 +14,9 @@ function Home() {
       description: "The Pink City, known for its royal palaces, forts, and vibrant culture.",
     },
     {
-      name: "Varanasi, Uttar Pradesh",
-      image: "https://images.unsplash.com/photo-1600508775076-7207f37b26e9",
-      description: "The spiritual capital of India, known for the Ganga ghats and divine aura.",
+      name: "Rameshwaram, Tamil Nadu",
+      image: "https://i.pinimg.com/1200x/51/c9/05/51c9055b784a381709507db241efbe2d.jpg",
+      description: "A sacred pilgrimage town famous for its ancient temples and pristine beaches.",
     },
   ];
 

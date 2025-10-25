@@ -1,70 +1,51 @@
-.festival-container {
-  padding: 50px;
-  background: linear-gradient(to bottom right, #fff7e6, #fff);
+/* src/pages/Festivals.css */
+.festival-page {
+  padding: 40px;
   text-align: center;
-  min-height: 100vh;
+  background: #f8f8f8;
 }
 
-.festival-container h1 {
-  font-size: 2.5rem;
-  color: #ff8c00;
-  font-weight: 700;
+.festival-heading {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
 }
 
-.intro-text {
-  color: #444;
-  margin: 15px auto 40px;
-  max-width: 700px;
-  font-size: 1.1rem;
-}
-
-/* 🪔 Festival Cards */
 .festival-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 30px;
 }
 
 .festival-card {
-  background: white;
+  background: #fff;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 300px;
+  padding-bottom: 20px;
+  transition: transform 0.3s ease;
 }
 
 .festival-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transform: translateY(-5px);
 }
 
 .festival-card img {
   width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   height: 200px;
   object-fit: cover;
 }
 
-.festival-info {
-  padding: 20px;
-}
-
-.festival-info h2 {
-  color: #333;
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-}
-
-.festival-info p {
-  color: #555;
-  font-size: 0.95rem;
-  margin-bottom: 15px;
-}
-
-.month {
-  background: #ffce54;
+.festival-card h2 {
+  margin: 15px 0 5px;
   color: #222;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
+}
+
+.festival-card p {
+  font-size: 0.95rem;
+  color: #555;
+  padding: 0 15px;
 }

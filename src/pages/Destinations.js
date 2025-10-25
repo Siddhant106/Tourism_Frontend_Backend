@@ -1,93 +1,104 @@
 import React, { useState } from "react";
 import "./Destinations.css";
+import { motion } from "framer-motion"; // <-- For animation
 
-function Destinations() {
-  const allDestinations = [
+const Destination = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState("name");
+
+  const destinations = [
     {
       name: "Taj Mahal",
-      image: "https://images.unsplash.com/photo-1580494753701-60a4345d2e34",
       location: "Agra, Uttar Pradesh",
-      region: "North",
-      description: "A symbol of eternal love and one of the Seven Wonders of the World.",
+      image: "/images/tajmahal.jpg",
+      description: "One of the Seven Wonders of the World, symbol of eternal love.",
+      popularity: 5,
     },
     {
       name: "Jaipur",
-      image: "https://images.unsplash.com/photo-1603262110263-fb5d4b1a9a4c",
       location: "Rajasthan",
-      region: "West",
-      description: "Known as the Pink City, famous for palaces, forts, and culture.",
+      image: "/images/rajasthan.jpg",
+      description: "The Pink City known for its forts, palaces, and culture.",
+      popularity: 4,
     },
     {
-      name: "Kerala Backwaters",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-      location: "Alleppey, Kerala",
-      region: "South",
-      description: "Peaceful backwaters surrounded by palm trees and houseboats.",
-    },
-    {
-      name: "Darjeeling",
-      image: "https://images.unsplash.com/photo-1571748982641-72c8ae76b389",
-      location: "West Bengal",
-      region: "East",
-      description: "Hill station known for tea gardens and views of Mount Kanchenjunga.",
-    },
-    {
-      name: "Leh-Ladakh",
-      image: "https://images.unsplash.com/photo-1533110969168-7d38b6f1b2b9",
-      location: "Jammu & Kashmir",
-      region: "North",
-      description: "Adventure destination with stunning landscapes and monasteries.",
+      name: "Varanasi",
+      location: "Uttar Pradesh",
+      image: "/images/varanasi.jpg",
+      description: "Spiritual capital of India, famous for Ganga Aarti.",
+      popularity: 3,
     },
     {
       name: "Goa",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
       location: "Goa",
-      region: "West",
-      description: "Beaches, nightlife, and Portuguese heritage — India’s party capital.",
+      image: "/images/goa.jpg",
+      description: "Beaches, nightlife, and Portuguese architecture.",
+      popularity: 5,
+    },
+    {
+      name: "Kerala",
+      location: "Kerala",
+      image: "/images/kerala.jpg",
+      description: "Backwaters, lush greenery, and cultural richness.",
+      popularity: 4,
     },
   ];
 
-  const [filter, setFilter] = useState("All");
-
-  const filteredDestinations =
-    filter === "All"
-      ? allDestinations
-      : allDestinations.filter((dest) => dest.region === filter);
+  const filtered = destinations
+    .filter((d) =>
+      d.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption === "name") return a.name.localeCompare(b.name);
+      if (sortOption === "popularity") return b.popularity - a.popularity;
+      return 0;
+    });
 
   return (
-    <div className="destinations-container">
-      <h1>Explore Indian Destinations 🏞️</h1>
-      <p className="intro">
-        Choose a region to explore its famous tourist attractions.
-      </p>
+    <div className="destination-container">
+      <h1 className="destination-title">Explore Destinations 🏝️</h1>
 
-      <div className="filter-buttons">
-        {["All", "North", "South", "East", "West"].map((region) => (
-          <button
-            key={region}
-            onClick={() => setFilter(region)}
-            className={filter === region ? "active" : ""}
-          >
-            {region}
-          </button>
-        ))}
+      <div className="destination-controls">
+        <input
+          type="text"
+          placeholder="Search destinations..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="name">Sort by Name</option>
+          <option value="popularity">Sort by Popularity</option>
+        </select>
       </div>
 
-      <div className="dest-grid">
-        {filteredDestinations.map((dest, index) => (
-          <div className="dest-card" key={index}>
-            <img src={dest.image} alt={dest.name} />
-            <div className="dest-info">
+      <div className="destination-grid">
+        {filtered.length > 0 ? (
+          filtered.map((dest, index) => (
+            <motion.div
+              key={index}
+              className="destination-card"
+              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <img src={dest.image} alt={dest.name} />
               <h2>{dest.name}</h2>
-              <p className="location">{dest.location}</p>
+              <p>{dest.location}</p>
               <p className="desc">{dest.description}</p>
-              <span className="region-tag">{dest.region}</span>
-            </div>
-          </div>
-        ))}
+              <span className="rating">⭐ {dest.popularity}/5</span>
+            </motion.div>
+          ))
+        ) : (
+          <p className="no-results">No destinations found 😕</p>
+        )}
       </div>
     </div>
   );
-}
+};
 
-export default Destinations;
+export default Destination;

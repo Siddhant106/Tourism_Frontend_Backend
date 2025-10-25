@@ -1,53 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Review.css";
 
-function Review() {
-  const reviews = [
-    {
-      name: "Aarav Sharma",
-      location: "Jaipur, Rajasthan",
-      img: "https://randomuser.me/api/portraits/men/51.jpg",
-      comment:
-        "Rajasthan was absolutely stunning! The forts, culture, and food were unforgettable.",
-      rating: 5,
-    },
-    {
-      name: "Priya Verma",
-      location: "Manali, Himachal Pradesh",
-      img: "https://randomuser.me/api/portraits/women/65.jpg",
-      comment:
-        "Loved the snow-capped mountains and cozy cafes! A must-visit for peace lovers.",
-      rating: 4,
-    },
-    {
-      name: "Rohan Gupta",
-      location: "Goa, India",
-      img: "https://randomuser.me/api/portraits/men/23.jpg",
-      comment:
-        "Goa was amazing — the beaches, sunsets, and vibes made it the perfect getaway!",
-      rating: 5,
-    },
-  ];
+const Reviews = () => {
+  const [reviews, setReviews] = useState([
+    { name: "Amit Sharma", place: "Taj Mahal, Agra", rating: 5, text: "Absolutely beautiful! A must-visit historical place." },
+    { name: "Neha Verma", place: "Goa Beach", rating: 4, text: "Perfect for relaxation and sunsets. Loved the vibe!" },
+    { name: "Rahul Singh", place: "Jaipur", rating: 5, text: "The pink city is full of life and heritage." },
+  ]);
+
+  const [form, setForm] = useState({ name: "", place: "", text: "", rating: 0 });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!form.name || !form.text || !form.place) return alert("Please fill all fields");
+    setReviews([...reviews, form]);
+    setForm({ name: "", place: "", text: "", rating: 0 });
+  };
 
   return (
-    <div className="review-container">
-      <h1>Traveller Reviews</h1>
-      <div className="review-grid">
-        {reviews.map((rev, index) => (
-          <div className="review-card" key={index}>
-            <img src={rev.img} alt={rev.name} />
-            <h2>{rev.name}</h2>
-            <p className="location">{rev.location}</p>
-            <p className="comment">"{rev.comment}"</p>
-            <div className="rating">
-              {"⭐".repeat(rev.rating)}{" "}
-              <span className="rating-num">({rev.rating}/5)</span>
-            </div>
+    <div className="reviews-page">
+      <h1 className="reviews-heading">Traveler Reviews ✈️</h1>
+
+      <div className="review-form">
+        <h2>Write Your Review</h2>
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="name" placeholder="Your Name" value={form.name} onChange={handleChange} />
+          <input type="text" name="place" placeholder="Place Visited" value={form.place} onChange={handleChange} />
+          <textarea name="text" placeholder="Write your experience..." value={form.text} onChange={handleChange}></textarea>
+          <select name="rating" value={form.rating} onChange={handleChange}>
+            <option value="0">Rating ⭐</option>
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Good</option>
+            <option value="3">3 - Average</option>
+            <option value="2">2 - Poor</option>
+            <option value="1">1 - Terrible</option>
+          </select>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div className="reviews-list">
+        {reviews.map((r, i) => (
+          <div className="review-card" key={i}>
+            <h3>{r.name}</h3>
+            <p className="place">📍 {r.place}</p>
+            <p className="text">“{r.text}”</p>
+            <p className="rating">⭐ {r.rating}/5</p>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
 
-export default Review;
+export default Reviews;
