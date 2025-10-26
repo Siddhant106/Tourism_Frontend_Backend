@@ -4,9 +4,9 @@ import "./Home.css";
 function Home() {
   const destinations = [
     {
-      name: "Rishikesh, Uttarakhand",
-      image: "https://i.pinimg.com/1200x/10/b8/16/10b816273afa1a1c49c7960ffe8c1637.jpg",
-      description: "The Yoga Capital of the World, nestled along the Ganges River and surrounded by the Himalayas.",
+      name: "Taj Mahal, Agra",
+      image: "https://i.pinimg.com/1200x/e9/1a/b6/e91ab6d60ffd80c74e6364c96f293a84.jpg",
+      description: "One of the Seven Wonders of the World, symbol of love and Mughal architecture.",
     },
     {
       name: "Jaipur, Rajasthan",
@@ -14,9 +14,9 @@ function Home() {
       description: "The Pink City, known for its royal palaces, forts, and vibrant culture.",
     },
     {
-      name: "Rameshwaram, Tamil Nadu",
-      image: "https://i.pinimg.com/1200x/51/c9/05/51c9055b784a381709507db241efbe2d.jpg",
-      description: "A sacred pilgrimage town famous for its ancient temples and pristine beaches.",
+      name: "Rishikesh, Uttarakhand",
+      image: "https://i.pinimg.com/1200x/10/b8/16/10b816273afa1a1c49c7960ffe8c1637.jpg",
+      description: "The Yoga Capital of the World, nestled in the Himalayas along the Ganges River.",
     },
   ];
 
