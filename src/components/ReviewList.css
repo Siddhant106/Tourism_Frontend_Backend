@@ -1,0 +1,170 @@
+/* src/components/ReviewList.css */
+
+.reviews-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.reviews-container h3 {
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-message {
+  padding: 1.5rem;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* No Reviews State */
+.no-reviews {
+  padding: 3rem;
+  text-align: center;
+  background: #f9fafb;
+  border-radius: 8px;
+  color: #6b7280;
+}
+
+/* Reviews List */
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.user-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.review-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.sentiment-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sentiment-emoji {
+  font-size: 1.5rem;
+}
+
+.sentiment-badge {
+  padding: 0.25rem 0.75rem;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.review-text {
+  margin: 1rem 0;
+  color: #374151;
+  line-height: 1.6;
+  font-size: 0.9375rem;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.confidence-score {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 640px) {
+  .reviews-container {
+    padding: 0 0.5rem;
+  }
+  
+  .review-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .sentiment-indicator {
+    align-self: flex-start;
+  }
+  
+  .review-card {
+    padding: 1rem;
+  }
+}
