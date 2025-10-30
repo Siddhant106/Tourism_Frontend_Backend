@@ -1,8 +1,9 @@
 // src/components/ReviewList.jsx
-// 🔥 Saare reviews display karega with ML sentiment
+// 🔥 UPDATED - With star ratings display
 
 import React, { useState, useEffect } from 'react';
 import { getReviews } from '../services/api';
+import StarRating from './StarRating';
 import './ReviewList.css';
 
 const ReviewList = ({ destinationId, refreshTrigger }) => {
@@ -10,9 +11,10 @@ const ReviewList = ({ destinationId, refreshTrigger }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchReviews();
-  }, [destinationId, refreshTrigger]); // Refresh when new review added
+useEffect(() => {
+  fetchReviews();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [destinationId, refreshTrigger]);
 
   const fetchReviews = async () => {
     setLoading(true);
@@ -126,11 +128,22 @@ const ReviewList = ({ destinationId, refreshTrigger }) => {
               </div>
             </div>
             
+            {/* ⭐ Star Rating Display */}
+            {review.rating > 0 && (
+              <div className="review-rating">
+                <StarRating 
+                  rating={review.rating} 
+                  readonly 
+                  size="small" 
+                />
+              </div>
+            )}
+            
             <p className="review-text">{review.review}</p>
             
             <div className="review-footer">
               <span className="confidence-score">
-                🎯 Confidence: {(review.sentiment_score * 100).toFixed(0)}%
+                🎯 ML Confidence: {(review.sentiment_score * 100).toFixed(0)}%
               </span>
             </div>
           </div>

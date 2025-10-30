@@ -1,21 +1,32 @@
 // src/components/ReviewForm.jsx
-// 🔥 User review submit karega aur ML sentiment dikhaega
+// 🔥 FINAL VERSION - With Toast, Spinner, and Star Rating
 
 import React, { useState } from 'react';
 import { submitReview } from '../services/api';
-import './ReviewForm.css'; // CSS file (niche di hai)
+import { useToast, ToastContainer } from './Toast';
+import LoadingSpinner from './LoadingSpinner';
+import StarRating from './StarRating';
+import './ReviewForm.css';
 
 const ReviewForm = ({ destinationId, onReviewAdded }) => {
   const [review, setReview] = useState('');
   const [userName, setUserName] = useState('');
+  const [rating, setRating] = useState(0);  // ⭐ NEW: Star rating
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  
+  const { toasts, addToast, removeToast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!review.trim()) {
-      alert('Please write a review!');
+      addToast('Please write a review!', 'warning');
+      return;
+    }
+
+    if (rating === 0) {
+      addToast('Please select a star rating!', 'warning');
       return;
     }
 
@@ -26,26 +37,31 @@ const ReviewForm = ({ destinationId, onReviewAdded }) => {
       const data = await submitReview({
         destination_id: destinationId,
         review: review,
-        user_name: userName || 'Anonymous'
+        user_name: userName || 'Anonymous',
+        rating: rating  // ⭐ Send rating to backend
       });
 
-      // Show result with sentiment
       setResult(data.review);
       
-      // Notify parent component to refresh reviews
+      addToast(
+        `Review submitted! Rating: ${rating}⭐ | Sentiment: ${data.review.sentiment.toUpperCase()}`,
+        'success',
+        4000
+      );
+      
       if (onReviewAdded) {
         onReviewAdded();
       }
       
-      // Reset form after 3 seconds
       setTimeout(() => {
         setReview('');
         setUserName('');
+        setRating(0);
         setResult(null);
       }, 3000);
       
     } catch (error) {
-      alert('❌ Error submitting review. Please try again!');
+      addToast('Failed to submit review. Please try again!', 'error');
       console.error(error);
     } finally {
       setLoading(false);
@@ -69,81 +85,111 @@ const ReviewForm = ({ destinationId, onReviewAdded }) => {
   };
 
   return (
-    <div className="review-form-container">
-      <h3>✍️ Write Your Review</h3>
+    <>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
       
-      <form onSubmit={handleSubmit} className="review-form">
-        <input
-          type="text"
-          placeholder="Your Name (optional)"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          className="form-input"
-        />
+      <div className="review-form-container">
+        <h3>✍️ Write Your Review</h3>
         
-        <textarea
-          placeholder="Share your experience about this destination..."
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          required
-          rows="5"
-          className="form-textarea"
-        />
-        
-        <button 
-          type="submit" 
-          disabled={loading}
-          className="submit-btn"
-        >
-          {loading ? '⏳ Analyzing Sentiment...' : '📝 Submit Review'}
-        </button>
-      </form>
-
-      {/* 🎉 Show ML Result */}
-      {result && (
-        <div 
-          className="sentiment-result"
-          style={{ 
-            borderLeft: `4px solid ${getSentimentColor(result.sentiment)}` 
-          }}
-        >
-          <div className="sentiment-header">
-            <span className="sentiment-emoji">
-              {getSentimentEmoji(result.sentiment)}
-            </span>
-            <h4>Review Submitted Successfully!</h4>
-          </div>
+        <form onSubmit={handleSubmit} className="review-form">
+          <input
+            type="text"
+            placeholder="Your Name (optional)"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            className="form-input"
+            disabled={loading}
+          />
           
-          <div className="sentiment-details">
-            <p>
-              <strong>Sentiment:</strong> 
-              <span 
-                className="sentiment-badge"
-                style={{ 
-                  backgroundColor: getSentimentColor(result.sentiment) 
-                }}
-              >
-                {result.sentiment.toUpperCase()}
-              </span>
-            </p>
-            <p>
-              <strong>Confidence Score:</strong> 
-              {(result.sentiment_score * 100).toFixed(1)}%
-            </p>
-          </div>
+          <textarea
+            placeholder="Share your experience about this destination..."
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+            required
+            rows="5"
+            className="form-textarea"
+            disabled={loading}
+          />
           
-          <div className="progress-bar">
-            <div 
-              className="progress-fill"
-              style={{ 
-                width: `${result.sentiment_score * 100}%`,
-                backgroundColor: getSentimentColor(result.sentiment)
-              }}
+          {/* ⭐ Star Rating Input */}
+          <div className="rating-section">
+            <label className="rating-label">Rate your experience:</label>
+            <StarRating 
+              rating={rating} 
+              onChange={setRating}
+              size="large"
+              readonly={loading}
             />
           </div>
-        </div>
-      )}
-    </div>
+          
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="submit-btn"
+          >
+            {loading ? '⏳ Analyzing...' : '📝 Submit Review'}
+          </button>
+        </form>
+
+        {loading && (
+          <div className="loading-overlay">
+            <LoadingSpinner message="Analyzing sentiment..." size="medium" />
+          </div>
+        )}
+
+        {/* 🎉 Show ML Result with Rating */}
+        {result && (
+          <div 
+            className="sentiment-result"
+            style={{ 
+              borderLeft: `4px solid ${getSentimentColor(result.sentiment)}` 
+            }}
+          >
+            <div className="sentiment-header">
+              <span className="sentiment-emoji">
+                {getSentimentEmoji(result.sentiment)}
+              </span>
+              <h4>Review Submitted Successfully!</h4>
+            </div>
+            
+            <div className="sentiment-details">
+              {/* ⭐ Display Rating */}
+              <div className="result-rating">
+                <strong>Your Rating:</strong>
+                <StarRating rating={result.rating} readonly size="small" />
+              </div>
+              
+              <p>
+                <strong>ML Sentiment:</strong> 
+                <span 
+                  className="sentiment-badge"
+                  style={{ 
+                    backgroundColor: getSentimentColor(result.sentiment) 
+                  }}
+                >
+                  {result.sentiment.toUpperCase()}
+                </span>
+              </p>
+              
+              <p>
+                <strong>Confidence Score:</strong> 
+                {(result.sentiment_score * 100).toFixed(1)}%
+              </p>
+            </div>
+            
+            <div className="progress-bar">
+              <div 
+                className="progress-fill"
+                style={{ 
+                  width: `${result.sentiment_score * 100}%`,
+                  backgroundColor: getSentimentColor(result.sentiment)
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

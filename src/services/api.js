@@ -1,5 +1,5 @@
 // src/services/api.js
-// 🔥 Ye file saare backend API calls handle karegi
+// 🔥 Backend API calls handler
 
 import axios from 'axios';
 
@@ -43,88 +43,3 @@ export const getDashboardStats = async () => {
     throw error;
   }
 };
-
-// ============================================
-// EXAMPLE USAGE IN COMPONENT
-// ============================================
-
-// src/components/ReviewForm.jsx
-import React, { useState } from 'react';
-import { submitReview } from '../services/api';
-
-const ReviewForm = ({ destinationId }) => {
-  const [review, setReview] = useState('');
-  const [userName, setUserName] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const data = await submitReview({
-        destination_id: destinationId,
-        review: review,
-        user_name: userName || 'Anonymous'
-      });
-
-      // Show result with sentiment
-      setResult(data.review);
-      alert(`✅ Review submitted! Sentiment: ${data.review.sentiment}`);
-      
-      // Reset form
-      setReview('');
-      setUserName('');
-    } catch (error) {
-      alert('❌ Error submitting review');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getSentimentEmoji = (sentiment) => {
-    switch(sentiment) {
-      case 'positive': return '😊';
-      case 'negative': return '😞';
-      default: return '😐';
-    }
-  };
-
-  return (
-    <div className="review-form">
-      <h3>Write a Review</h3>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Your Name (optional)"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        
-        <textarea
-          placeholder="Share your experience..."
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          required
-          rows="4"
-        />
-        
-        <button type="submit" disabled={loading}>
-          {loading ? '⏳ Analyzing...' : '📝 Submit Review'}
-        </button>
-      </form>
-
-      {/* Show ML Result */}
-      {result && (
-        <div className={`result ${result.sentiment}`}>
-          <h4>Your Review Sentiment: {getSentimentEmoji(result.sentiment)}</h4>
-          <p>Sentiment: <strong>{result.sentiment}</strong></p>
-          <p>Confidence Score: {(result.sentiment_score * 100).toFixed(1)}%</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReviewForm;

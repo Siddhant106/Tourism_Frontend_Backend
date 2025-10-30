@@ -1,3 +1,6 @@
+// src/App.js
+// 🔥 FINAL VERSION - All enhancements included
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
 import Navbar from "./components/NavBar1";
@@ -9,8 +12,9 @@ import Contact from "./pages/Contact";
 import Destinations from "./pages/Destinations";
 import Sentiment from "./pages/Sentiment";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";  // ✅ NEW: Dashboard
+import Auth from "./pages/Auth";            // ✅ NEW: Login/Signup
 import "./App.css";
-
 
 function App() {
   return (
@@ -25,6 +29,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/destinations" element={<Destinations />} />
           <Route path="/sentiment" element={<Sentiment />} />
+          <Route path="/dashboard" element={<Dashboard />} />  {/* ✅ NEW */}
+          <Route path="/auth" element={<Auth />} />            {/* ✅ NEW */}
         </Routes>
         <Footer />
       </div>

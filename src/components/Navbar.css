@@ -1,8 +1,11 @@
+/* src/components/Navbar.css */
+/* 🔥 Original Theme + Small Enhancements */
+
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #131921; /* Amazon dark blue */
+  background-color: #131921; /* Amazon dark blue - ORIGINAL */
   color: white;
   padding: 10px 25px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -11,7 +14,7 @@
   z-index: 1000;
 }
 
-/* Logo Section */
+/* Logo Section - ORIGINAL */
 .logo-section {
   display: flex;
   align-items: center;
@@ -19,15 +22,16 @@
 
 .logo {
   font-size: 1.7rem;
-  color: #ff9900; /* Amazon orange */
+  color: #ff9900; /* Amazon orange - ORIGINAL */
   font-weight: bold;
+  cursor: pointer;
 }
 
 .logo span {
   color: white;
 }
 
-/* Search Bar */
+/* Search Bar - ORIGINAL */
 .search-bar {
   display: flex;
   align-items: center;
@@ -57,7 +61,7 @@
   background-color: #f3a847;
 }
 
-/* Navigation Links */
+/* Navigation Links - ORIGINAL */
 .nav-links {
   display: flex;
   align-items: center;
@@ -76,10 +80,11 @@
   color: #febd69;
 }
 
-/* User/Login Section */
+/* User/Login Section - ORIGINAL STYLE */
 .user-section {
   display: flex;
   align-items: center;
+  gap: 12px; /* ✅ NEW - spacing between elements */
 }
 
 .login-btn {
@@ -95,4 +100,109 @@
 
 .login-btn:hover {
   background-color: #f3a847;
+}
+
+/* ✅ NEW - User Greeting (matches original theme) */
+.user-greeting {
+  color: #febd69;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+/* ✅ NEW - Logout Button (matches login style but red) */
+.logout-btn {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #cc0000;
+}
+
+/* ========================================
+   NEW STYLES FOR ENHANCEMENTS
+======================================== */
+
+/* Loading overlay for ReviewForm */
+.loading-overlay {
+  margin-top: 1rem;
+  padding: 2rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+/* Rating section in ReviewForm */
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.rating-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9375rem;
+}
+
+/* Review rating in ReviewList */
+.review-rating {
+  margin: 0.75rem 0;
+  padding: 0.5rem 0;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* Result rating in sentiment result */
+.result-rating {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.result-rating strong {
+  color: #374151;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 10px 15px;
+  }
+
+  .search-bar {
+    order: 3;
+    width: 100%;
+    margin: 10px 0 0 0;
+  }
+
+  .nav-links {
+    gap: 15px;
+    font-size: 0.9rem;
+  }
+
+  .user-greeting {
+    font-size: 0.85rem;
+  }
+
+  .login-btn,
+  .logout-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
 }

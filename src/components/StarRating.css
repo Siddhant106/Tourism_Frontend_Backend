@@ -1,0 +1,87 @@
+/* src/components/StarRating.css */
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s, color 0.2s;
+  line-height: 1;
+}
+
+.star:not(:disabled):hover {
+  transform: scale(1.2);
+}
+
+.star:disabled {
+  cursor: default;
+}
+
+.star.filled {
+  color: #fbbf24;
+  text-shadow: 0 1px 3px rgba(251, 191, 36, 0.5);
+}
+
+.star.empty {
+  color: #d1d5db;
+}
+
+.rating-text {
+  margin-left: 8px;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Size Variants */
+.stars-small .star {
+  font-size: 1.25rem;
+}
+
+.stars-small .rating-text {
+  font-size: 0.75rem;
+}
+
+.stars-medium .star {
+  font-size: 1.75rem;
+}
+
+.stars-medium .rating-text {
+  font-size: 0.875rem;
+}
+
+.stars-large .star {
+  font-size: 2.5rem;
+}
+
+.stars-large .rating-text {
+  font-size: 1rem;
+}
+
+/* Readonly state */
+.star-rating.readonly {
+  pointer-events: none;
+}
+
+/* Animation */
+.star.filled {
+  animation: starPop 0.3s ease;
+}
+
+@keyframes starPop {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
